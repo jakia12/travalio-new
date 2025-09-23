@@ -18,18 +18,18 @@ export default function Footer() {
           {/* Navigation */}
           <nav className="flex flex-wrap gap-7 text-base md:text-lg font-medium mt-4 lg:mt-0">
             <Link
-              href="/destinations"
+              href="/resorts"
               className="hover:text-white"
               style={{ color: "#ffffff" }}
             >
-              Destinations
+              Resorts
             </Link>
             <Link
-              href="/tours"
+              href="/offers"
               className="hover:text-white"
               style={{ color: "#ffffff" }}
             >
-              Tours
+              Offers
             </Link>
             <Link
               href="/about"
