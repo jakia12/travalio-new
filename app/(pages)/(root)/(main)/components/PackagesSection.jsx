@@ -78,7 +78,7 @@ export default function PackagesSection() {
         <div className="cs_height_55 cs_height_lg_40" />
       </div>
 
-      <div className="container-fluid">
+      <div className="container">
         <div className="row cs_gap_y_24">
           {packages.map((p, i) => (
             <div className="col-12 col-md-6 col-lg-4" key={i}>

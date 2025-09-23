@@ -24,7 +24,7 @@ export default function ResortShowcase() {
   ];
 
   return (
-    <section className="container-fluid my-4 my-lg-5 py-[80px]">
+    <section className="container my-4 my-lg-5 py-[80px]">
       {/* title heading */}
       <div className="cs_section_heading cs_style_1 text-center">
         <h3
