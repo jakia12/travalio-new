@@ -30,7 +30,7 @@ export default function TravelHero() {
         {/* CTA buttons */}
         <div className="mt-[60px] flex flex-wrap items-center justify-center gap-4">
           <Link
-            href="/destinations"
+            href="/resorts"
             style={{ textDecoration: "none" }}
             className="group inline-flex items-center rounded border-[3px] border-white/80 text-lg px-[35px] py-3 text-white backdrop-blur transition hover:bg-[#2ecc71] bg-white/15 shadow-2xl "
           >
@@ -46,7 +46,7 @@ export default function TravelHero() {
             </svg>
           </Link>
           <Link
-            href="/tours"
+            href="/booking"
             style={{ textDecoration: "none" }}
             className="group inline-flex items-center rounded border-[3px] hover:border-white/80 border-[#2ecc71] text-lg px-[35px] py-3 text-white backdrop-blur transition bg-[#2ecc71] hover:bg-white/15 shadow-2xl "
           >
