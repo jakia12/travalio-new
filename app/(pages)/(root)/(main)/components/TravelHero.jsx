@@ -13,18 +13,18 @@ export default function TravelHero() {
       {/* Content */}
       <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-6 text-center">
         <p
-          className="mb-4 text-xl tracking-[0.3em] text-white/80 md:text-base satisfy "
+          className="mb-4 text-xl tracking-[0.3em] text-white/80 md:text-base satisfy"
           style={{ fontSize: "28px", color: "#2ecc71", letterSpacing: "0.3em" }}
         >
-          LET’S TRAVEL THE WORLD WITH US
+          YOUR JOURNEY BEGINS HERE
         </p>
 
         <h1
-          className=" text-4xl leading-tight text-white drop-shadow-md md:text-6xl lg:text-7xl playfair"
+          className="text-4xl leading-tight text-white drop-shadow-md md:text-6xl lg:text-7xl playfair"
           style={{ fontSize: "70px", fontWeight: "700" }}
         >
-          Travel Top Destination
-          <br className="hidden md:block" /> of The World
+          Discover & Book
+          <br className="hidden md:block" /> Unforgettable Destinations
         </h1>
 
         {/* CTA buttons */}
