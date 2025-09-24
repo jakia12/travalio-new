@@ -10,9 +10,9 @@ export default function About() {
           <div className="relative w-full max-w-[560px] pb-0 lg:pb-28">
             {/* Tall rounded shape */}
             <img
-              src="/images/abt.png"
+              src="/abt.png"
               alt="Sailing trip"
-              className=""
+              className="rounded-xl"
               loading="lazy"
             />
 
