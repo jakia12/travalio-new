@@ -2,34 +2,43 @@
 "use client";
 
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function NewsletterBanner({ onSubscribe }) {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | loading | success | error
-  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState("idle"); // idle | loading
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email) {
+      toast.error("Please enter an email address");
+      return;
+    }
 
     try {
       setStatus("loading");
-      setMessage("");
 
       // Hook up your API here (e.g., POST to /api/newsletter)
       if (onSubscribe) {
         await onSubscribe(email);
       } else {
-        // demo no-op
+        // demo delay
         await new Promise((r) => setTimeout(r, 800));
       }
 
-      setStatus("success");
-      setMessage("Thanks! You’re subscribed.");
+      toast.success("🎉 Thanks! You’re subscribed.", {
+        style: {
+          fontSize: "1.125rem",
+          padding: "16px 24px",
+          minWidth: "320px",
+        },
+      });
+
       setEmail("");
+      setStatus("idle");
     } catch (err) {
-      setStatus("error");
-      setMessage("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
+      setStatus("idle");
     }
   };
 
@@ -60,7 +69,7 @@ export default function NewsletterBanner({ onSubscribe }) {
 
             <button
               type="submit"
-              className="cs_btn cs_style_1 cs_fs_18 cs_medium bg-[#101828]"
+              className="cs_btn cs_style_1 cs_fs_18 cs_medium bg-[#101828] hover:bg-[#101828cc]"
               style={{ backgroundColor: "#101828" }}
               disabled={status === "loading"}
             >
@@ -85,17 +94,6 @@ export default function NewsletterBanner({ onSubscribe }) {
               </svg>
             </button>
           </form>
-
-          {/* Status message */}
-          {message && (
-            <p
-              className={`mt-2 ${status === "success" ? "cs_white_color" : ""}`}
-              role="status"
-              aria-live="polite"
-            >
-              {message}
-            </p>
-          )}
         </div>
       </div>
     </div>

@@ -7859,6 +7859,44 @@ img {
   height: 558px !important;
   width: 100%;
 }
+
+.cs_newsletter.cs_style_1 .cs_btn.cs_style_1:hover {
+  background-color: #101828d0 !important;
+  color: #fff !important;
+  /* background-color: #2ecc71 !important; */
+}
+
+/* not found page design */
+.oops-text {
+  font-size: clamp(64px, 12vw, 144px);
+  font-weight: 800;
+  line-height: 1;
+  margin: 0;
+  /* Use your own image if you like: /img/404-space.jpg */
+  background-image: url("/img/404-space.jpg"),
+    radial-gradient(100% 100% at 50% 0%, #3b82f6 0%, #8b5cf6 45%, #0ea5e9 100%);
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 0.02em;
+}
+
+.resort-title {
+  z-index: 2;
+  color: #fff;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.35);
+  padding: 14px 22px;
+  font-weight: 600;
+  line-height: 1.3;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+}
 /* ==================== */
 
 /* =================== */

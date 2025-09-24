@@ -4,6 +4,7 @@ import "../../../globals.css";
 
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
+import { Toaster } from "react-hot-toast";
 import ClientEffects from "./components/ClientEffects";
 
 const geistSans = Geist({
@@ -124,6 +125,7 @@ export default function RootLayout({ children }) {
         <Script src="/js/plugins/lg-zoom.umd.js" strategy="afterInteractive" />
 
         {/* Optional: quick inline init (or do this in a client component) */}
+        <Toaster position="top-center" />
       </body>
     </html>
   );

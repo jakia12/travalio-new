@@ -1,8 +1,6 @@
 // app/_components/SummaryCard.jsx
 "use client";
 
-import Link from "next/link";
-
 export default function SummaryCard({
   pkg,
   nights = 1,
@@ -12,6 +10,8 @@ export default function SummaryCard({
   baseTotal = 0,
   taxes = 0,
   grandTotal = 0,
+  onReserve, // NEW
+  submitting = false, // NEW
 }) {
   if (!pkg) return null;
 
@@ -74,15 +74,18 @@ export default function SummaryCard({
           <span className="h4 mb-0">${grandTotal}</span>
         </div>
 
-        <Link
-          href="#"
-          className="btn  w-100 mt-3 py-2 book_btn"
-          onClick={(e) => e.preventDefault()}
-          aria-disabled="true"
-          title="Connect to your payment flow"
+        {/* Reserve Now -> calls onReserve from parent */}
+        <button
+          type="button"
+          className="btn w-100 mt-3 py-2 book_btn"
+          onClick={onReserve}
+          disabled={submitting || !onReserve}
+          aria-busy={submitting ? "true" : "false"}
+          aria-live="polite"
+          style={{ background: "#2ecc71", color: "#fff", border: "none" }}
         >
-          Reserve Now
-        </Link>
+          {submitting ? "Redirecting…" : "Reserve Now"}
+        </button>
 
         <p className="small text-muted text-center mt-2 mb-0">
           Free changes within 24 hours • Secure checkout

@@ -78,6 +78,52 @@ export default function BookingPage() {
   const taxes = Math.round((baseTotal + extrasTotal) * 0.1);
   const grandTotal = baseTotal + extrasTotal + taxes;
 
+  // reserve now button stuff
+  const [submitting, setSubmitting] = useState(false);
+
+  function validate() {
+    if (!selected) return "Pick a package";
+    if (!checkIn || !checkOut) return "Select check-in and check-out dates";
+    if (new Date(checkOut) <= new Date(checkIn))
+      return "Check-out must be after check-in";
+    if (adults < 1) return "At least 1 adult";
+    return null;
+  }
+
+  async function handleReserve() {
+    const error = validate();
+    if (error) {
+      alert(error);
+      return;
+    }
+
+    setSubmitting(true);
+
+    const addOns = Object.entries(extras)
+      .filter(([, v]) => v)
+      .map(([k]) => k);
+
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        packageId: selected,
+        checkIn,
+        checkOut,
+        adults,
+        children,
+        nights,
+        addOns,
+      }),
+    });
+
+    const data = await res.json();
+    setSubmitting(false);
+
+    if (data?.url) window.location.href = data.url;
+    else alert(data?.error || "Failed to start checkout");
+  }
+
   return (
     <main>
       {/* HERO */}
@@ -319,13 +365,19 @@ export default function BookingPage() {
             <div className="d-grid">
               <Link
                 href="#"
-                className="btn btn-dark btn-lg py-3 "
+                className={`btn btn-dark btn-lg py-3 ${
+                  submitting ? "disabled" : ""
+                }`}
                 style={{ background: "#2ecc71", border: "none" }}
-                onClick={(e) => e.preventDefault()}
-                aria-disabled="true"
-                title="Payment flow to be connected"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (!submitting) handleReserve();
+                }}
+                role="button"
+                aria-disabled={submitting ? "true" : "false"}
+                aria-busy={submitting ? "true" : "false"}
               >
-                Continue to Payment
+                {submitting ? "Redirecting…" : "Continue to Payment"}
               </Link>
             </div>
           </div>
@@ -341,6 +393,8 @@ export default function BookingPage() {
               baseTotal={baseTotal}
               taxes={taxes}
               grandTotal={grandTotal}
+              onReserve={handleReserve} // NEW
+              submitting={submitting} // NEW
             />
           </div>
         </div>
@@ -371,6 +425,8 @@ export default function BookingPage() {
             baseTotal={baseTotal}
             taxes={taxes}
             grandTotal={grandTotal}
+            onReserve={handleReserve} // NEW
+            submitting={submitting} // NEW
           />
         </div>
       </div>

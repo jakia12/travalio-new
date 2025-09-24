@@ -1,27 +1,13 @@
 // app/_components/ResortShowcase.jsx
 "use client";
 
+import { resorts } from "@/data/resorts";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function ResortShowcase() {
-  const items = [
-    {
-      title: "Lily Beach Resort & Spa",
-      desc: "Pioneering all inclusive resort",
-      img: "/img/rs1.webp",
-    },
-    {
-      title: "Hideaway Beach Resort & Spa",
-      desc: "Featuring all suites and unparalleled privacy",
-      img: "/img/rs2.webp",
-    },
-    {
-      title: "The Signature Collection By Hideaway",
-      desc: "Offering a set of Exclusive Nine Ultra Luxurious Villas",
-      img: "/img/rs3.webp",
-    },
-  ];
+  // show the first 3 like your original layout; change to slice(0,6) if needed
+  const list = resorts.slice(0, 3);
 
   return (
     <section className="container my-4 my-lg-5 py-[80px]">
@@ -42,42 +28,47 @@ export default function ResortShowcase() {
           Featured Resorts
         </h2>
       </div>
+
       <div className="cs_height_55 cs_height_lg_40" />
+
       <div className="row g-4">
-        {items.map((it, i) => (
-          <div className="col-12 col-lg-4" key={i}>
-            <article className="resort-tile position-relative rounded-4 overflow-hidden">
-              <Image
-                src={it.img}
-                alt={it.title}
-                fill
-                sizes="(max-width: 992px) 100vw, 33vw"
-                className="tile-img"
-                priority={i === 0}
-              />
-              <div className="tile-overlay" />
-              <div className="tile-content text-white">
-                <h3 className="h5 mb-2">{it.title}</h3>
-                <p className="mb-3 small opacity-90">{it.desc}</p>
-                <Link href="/booking" className="book-link flex items-center">
-                  BOOK NOW
-                  <svg
-                    className="ml-2 h-5 w-5 transition group-hover:translate-x-0.5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
+        {list.map((r, i) => (
+          <div className="col-12 col-lg-4" key={r.id}>
+            <Link href={`/resorts/${r.slug}`}>
+              <article className="resort-tile position-relative rounded-4 overflow-hidden">
+                <Image
+                  src={r.img}
+                  alt={r.name}
+                  fill
+                  sizes="(max-width: 992px) 100vw, 33vw"
+                  className="tile-img"
+                  priority={i === 0}
+                />
+                <div className="tile-overlay" />
+                <div className="tile-content text-white">
+                  <h3 className="h5 mb-2">{r.name}</h3>
+                  <p className="mb-3 small opacity-90">{r.short}</p>
+                  <Link
+                    href={`/resorts/${r.slug}`}
+                    className="book-link flex items-center"
                   >
-                    <path d="M5 12h14M13 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              </div>
-            </article>
+                    BOOK NOW
+                    <svg
+                      className="ml-2 h-5 w-5 transition group-hover:translate-x-0.5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M5 12h14M13 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </article>
+            </Link>
           </div>
         ))}
       </div>
-
-      {/* tiny, local CSS – no extra files needed */}
     </section>
   );
 }
