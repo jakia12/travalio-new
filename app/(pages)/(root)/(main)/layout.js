@@ -125,7 +125,20 @@ export default function RootLayout({ children }) {
         <Script src="/js/plugins/lg-zoom.umd.js" strategy="afterInteractive" />
 
         {/* Optional: quick inline init (or do this in a client component) */}
-        <Toaster position="top-center" />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              maxWidth: "min(92vw, 390px)", // ⬅️ wider toasts, but not past viewport
+              width: "100%",
+              whiteSpace: "pre-wrap", // nicer wrapping for long messages
+              wordBreak: "break-word",
+              fontSize: "17px",
+            },
+            success: { iconTheme: { primary: "#22c55e", secondary: "#fff" } },
+          }}
+        />
       </body>
     </html>
   );

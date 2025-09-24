@@ -1,0 +1,207 @@
+/* app/not-found.module.css */
+
+/* Layout */
+.nfWrap {
+  min-height: 100svh;
+  padding: 4rem 1.25rem;
+  position: relative;
+  overflow: clip;
+  background: radial-gradient(
+      1200px 600px at 10% -10%,
+      #e0e7ff 0%,
+      transparent 60%
+    ),
+    radial-gradient(1000px 700px at 110% 10%, #ffe4e6 0%, transparent 55%),
+    linear-gradient(180deg, #0b1020 0%, #0b0f1a 100%);
+  color: #e9eefc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ambient background details */
+.nfBg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.grid {
+  position: absolute;
+  inset: -50% -20%;
+  background-image: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  transform: perspective(900px) rotateX(60deg) translateY(20%);
+  filter: blur(0.3px);
+  opacity: 0.35;
+}
+.orb {
+  position: absolute;
+  width: 36vmin;
+  height: 36vmin;
+  border-radius: 50%;
+  filter: blur(30px);
+  opacity: 0.35;
+  animation: float 12s ease-in-out infinite;
+}
+.orb1 {
+  top: 6%;
+  left: 8%;
+  background: conic-gradient(from 90deg, #6366f1, #22d3ee, #6366f1);
+}
+.orb2 {
+  bottom: 8%;
+  right: 10%;
+  background: conic-gradient(from 210deg, #fb7185, #f59e0b, #fb7185);
+  animation-delay: -6s;
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+}
+
+/* Card */
+.nfCard {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 860px;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: 24px;
+  backdrop-filter: saturate(140%) blur(12px);
+  background: linear-gradient(
+    180deg,
+    rgba(20, 25, 45, 0.75),
+    rgba(14, 18, 34, 0.75)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  text-align: center;
+}
+
+.badgeSoft {
+  display: inline-block;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.12);
+  color: #c7d2fe;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+/* 404 headline */
+.nf404 {
+  margin: 0.15em 0 0.1em;
+  font-size: clamp(3rem, 12vw, 9rem);
+  line-height: 0.9;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #a5b4fc, #22d3ee, #fca5a5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 12px 40px rgba(99, 102, 241, 0.25);
+}
+.zero {
+  display: inline-block;
+  filter: drop-shadow(0 8px 16px rgba(34, 211, 238, 0.25));
+}
+
+.nfTitle {
+  font-size: clamp(1.25rem, 2.8vw, 2rem);
+  margin-bottom: 0.25rem;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.nfSub {
+  margin: 0 auto 1.25rem;
+  max-width: 60ch;
+  color: #c8d0e8;
+}
+
+/* Illustration */
+.nfIllustration {
+  margin: 1rem auto 1.25rem;
+  max-width: 520px;
+}
+.floaty {
+  display: block;
+  width: 100%;
+  height: auto;
+  animation: bob 6s ease-in-out infinite;
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Actions */
+.nfActions {
+  margin: 0.25rem 0 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.nfBtn {
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  border-width: 1px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+.nfBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Search */
+.nfSearch {
+  margin: 0.25rem auto 0;
+  max-width: 640px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+}
+.nfInput {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #e8edff;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+}
+.nfInput::placeholder {
+  color: #9aa6c4;
+}
+.nfSearchBtn {
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .nfActions .nfBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -3,7 +3,9 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import toast from "react-hot-toast";
 import SummaryCard from "./components/SummaryCard";
+// at the top of your component:
 // ← adjust if your path differs
 
 const PACKAGES = [
@@ -79,49 +81,81 @@ export default function BookingPage() {
   const grandTotal = baseTotal + extrasTotal + taxes;
 
   // reserve now button stuff
+
+  // state
   const [submitting, setSubmitting] = useState(false);
 
+  // validation — shows BOTH missing date fields in one toast
   function validate() {
-    if (!selected) return "Pick a package";
-    if (!checkIn || !checkOut) return "Select check-in and check-out dates";
-    if (new Date(checkOut) <= new Date(checkIn))
-      return "Check-out must be after check-in";
-    if (adults < 1) return "At least 1 adult";
+    if (!selected) return { msg: "Pick a package" };
+
+    const missing = [];
+    if (!checkIn) missing.push({ id: "checkIn", label: "Check-in" });
+    if (!checkOut) missing.push({ id: "checkOut", label: "Check-out" });
+
+    if (missing.length) {
+      const labels = missing.map((m) => m.label).join(" & ");
+      return {
+        msg: `Please select ${labels} date${missing.length > 1 ? "s" : ""}.`,
+        focus: missing[0].id,
+      };
+    }
+
+    if (new Date(checkOut) <= new Date(checkIn)) {
+      return { msg: "Check-out must be after check-in", focus: "checkOut" };
+    }
+
+    if (adults < 1) return { msg: "At least 1 adult" };
+
     return null;
   }
 
+  // handler — creates checkout and redirects; shows loading/success/error toasts
   async function handleReserve() {
     const error = validate();
     if (error) {
-      alert(error);
+      toast.error(error.msg);
+      if (error.focus) document.getElementById(error.focus)?.focus();
       return;
     }
 
     setSubmitting(true);
+    const loadingId = toast.loading("Creating secure checkout…");
 
     const addOns = Object.entries(extras)
       .filter(([, v]) => v)
       .map(([k]) => k);
 
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        packageId: selected,
-        checkIn,
-        checkOut,
-        adults,
-        children,
-        nights,
-        addOns,
-      }),
-    });
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          packageId: selected,
+          checkIn,
+          checkOut,
+          adults,
+          children,
+          nights,
+          addOns,
+        }),
+      });
 
-    const data = await res.json();
-    setSubmitting(false);
+      const data = await res.json();
+      toast.dismiss(loadingId);
+      setSubmitting(false);
 
-    if (data?.url) window.location.href = data.url;
-    else alert(data?.error || "Failed to start checkout");
+      if (data?.url) {
+        toast.success("Redirecting to Stripe…");
+        window.location.href = data.url;
+      } else {
+        toast.error(data?.error || "Failed to start checkout");
+      }
+    } catch (err) {
+      toast.dismiss(loadingId);
+      setSubmitting(false);
+      toast.error("Network error. Please try again.");
+    }
   }
 
   return (
@@ -225,6 +259,7 @@ export default function BookingPage() {
                 <div className="col-12 col-md-6">
                   <label className="form-label">Check-in</label>
                   <input
+                    id="checkIn" // ← add
                     type="date"
                     className="form-control"
                     value={checkIn}
@@ -234,6 +269,7 @@ export default function BookingPage() {
                 <div className="col-12 col-md-6">
                   <label className="form-label">Check-out</label>
                   <input
+                    id="checkOut" // ← add
                     type="date"
                     className="form-control"
                     value={checkOut}
