@@ -1,4 +1,3 @@
-import FeaturedSection from "./components/FeaturedSection";
 import Gallery from "./components/Gallery";
 import MaldivesOffersCTA from "./components/MaldivesOffersCTA";
 import NewsletterBanner from "./components/NewsletterBanner";
@@ -12,7 +11,7 @@ export default function Home() {
       <TravelHero />
       {/* <WhoWeAre /> */}
       {/* <PopularDestinations /> */}
-      <FeaturedSection />
+      {/* <FeaturedSection /> */}
       <PackagesSection />
       <ResortShowcase />
       <Gallery />
